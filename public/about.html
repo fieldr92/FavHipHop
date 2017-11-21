@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./styles/about.css">
+  <title>Fav Hip Hop Artists</title>
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <header>
+    <h1>Fav Hip Hop Artists</h1>
+  </header>
+  <div class="container">
+    <section>
+      <form id="addForm">
+        <div>
+          <label>Artist Name</label>
+          <br>
+          <input type="text" id="inputArtistName" placeholder="Enter artist name" name="name">
+        </div>
+        <div>
+          <label>Img Link</label>
+          <br>
+          <input type="text" id="inputImg" placeholder="Enter Img Link" name="name">
+        </div>
+        <div>
+          <label>Favourite Song</label>
+          <br>
+          <input type="text" id="inputFavSong" placeholder="Enter favourite song" name="name">
+        </div>
+        <div>
+          <label>Sub-Genre(s)</label>
+          <br>
+          <input type="text" id="inputSubGenre" placeholder="Enter sub-genre" name="name">
+        </div>
+        <div>
+          <label>Number of Albums</label>
+          <br>
+          <input type="text" id="inputNoAlbums" placeholder="Enter number of albums" name="name">
+        </div>
+        <div>
+          <label>Number of Collaborations</label>
+          <br>
+          <input type="text" id="inputNoCollabs" placeholder="Enter number of collaborations" name="name">
+        </div>
+        <div>
+          <label>Number of Alter Egos</label>
+          <br>
+          <input type="text" id="inputNoAlterEgos" placeholder="Enter number of alter egos" name="name">
+        </div>
+        <div>
+          <label>Number of Records Sold</label>
+          <br>
+          <input type="text" id="inputNoRecordsSold" placeholder="Enter number of records sold" name="name">
+        </div>
+        <div>
+          <label>Age</label>
+          <br>
+          <input type="text" id="inputAge" placeholder="Enter artist age" name="name">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+    <section>
+      <button type="button" id="load">View/Refresh Artist List</button>
+      <div class="artistLoad" id="artistsList">
+        No friends loaded
+      </div>
+    </section>
+  </div>
+  <!-- SCRIPT ELEMENTS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="./scripts/main.js"></script>
+
+</body>
+</html>

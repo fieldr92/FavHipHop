@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: center;
+  height: 100px;
+  line-height: 100px;
+  vertical-align: middle;
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+
+.container {
+  text-align: center;
+  /*display: flex;*/
+}
+
+.lefty-sec {
+  width: 100%;
+  background-color: grey;
+}
+
+/*button .startButton:click {
+  z-index: 0;
+}*/
+
+.playerCard {
+  border: 1px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px;
+  width: 30%;
+  margin: 5%;
+}
+
+.playerCard input {
+  display: block;
+}
+
+.playerCard label {
+  display: block;
+  margin: 5px
+}
+
+.compCard {
+  border: 1px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px;
+  width: 30%;
+  margin: 5%;
+}
+
+/*.righty-aside {
+  width: 50%;
+  background-color: red;
+  height: 1000px;
+}*/
