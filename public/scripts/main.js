@@ -92,11 +92,11 @@ $(function(){
       }).fail(errorHandler);
       setTimeout(function(){
         dealCards();
-      }, 600);
+      }, 500);
   }
 
   var playerCardCompare = null;
-  var testies = null;
+  var getCompVal = null;
   var compCardCompare = null;
 
   function dealCards() {
@@ -124,9 +124,9 @@ $(function(){
     );
     $('#submit').on('submit', function(e) {
       playerCardCompare = $('input[name="choices"]:checked').val();
-      testies = $('input[name="choices"]:checked').attr('id');
-      compCardCompare = $('input[name="match"][id="' + testies + '"]').val();
-      console.log(playerCardCompare, testies, compCardCompare);
+      getCompVal = $('input[name="choices"]:checked').attr('id');
+      compCardCompare = $('input[name="match"][id="' + getCompVal + '"]').val();
+      console.log(playerCardCompare, getCompVal, compCardCompare);
       e.preventDefault();
     });
   }
