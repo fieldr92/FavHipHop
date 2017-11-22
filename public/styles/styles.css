@@ -1,62 +1,141 @@
 * {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: 'Press Start 2P', cursive;
   margin: 0;
 }
 
 header {
-  text-align: center;
   height: 100px;
   line-height: 100px;
   vertical-align: middle;
   width: 100%;
-  background-color: black;
-  color: white;
+  background-color: rgba(10, 18, 12, 0.89);
+  color: rgb(235, 235, 235);
+}
+
+header h1 {
+  font-family: 'Press Start 2P', cursive;
+  margin-left: 3%;
+  font-size: 24pt;
+  font-weight: lighter;
 }
 
 .container {
   text-align: center;
-  /*display: flex;*/
+  display: flex;
 }
 
 .lefty-sec {
-  width: 100%;
-  background-color: grey;
+  width: 20%;
+  background-color: rgba(119, 48, 140, 0.76);
+  height: 700px;
 }
 
-/*button .startButton:click {
-  z-index: 0;
-}*/
+button {
+  line-height: 1.5;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14pt;
+  font-weight: bolder;
+
+}
+
+.startButton {
+  height: 70px;
+  width: 80%;
+  margin: 20px;
+}
+
+.lefty-sec h1 {
+  color: rgb(235, 235, 235);
+}
+
+.score {
+  height: 150px;
+  width: 100%;
+}
+
+.righty-aside {
+  width: 80%;
+  background-color: rgb(192, 182, 233);
+  height: 700px;
+}
+
+#gameBoard {
+  margin-top: 20px;
+}
+
+.outerCard h2 {
+  font-size: 14pt;
+  text-transform: uppercase;
+  padding: 10px;
+  margin: -10px -10px 0 -10px;
+  font-weight: bolder;
+  background-color: gold;
+  border-radius: 6px 6px 0 0 ;
+}
+
+img {
+  margin-bottom: 10px;
+  height: 200px;
+}
+
+label {
+  font-size: 10pt;
+  font-weight: 1000;
+  color: rgb(228, 240, 228);
+  display: block;
+}
+
+input {
+  font-size: 9pt;
+  font-weight: lighter;
+}
+
+.outerCard {
+  background-color: silver;
+  padding: 15px;
+  width: 35%;
+  margin: 0 5%;
+  border-radius: 10px;
+  display: inline-block;
+}
 
 .playerCard {
-  border: 1px solid black;
-  border-radius: 5px;
-  display: inline-block;
+  background-color: rgba(5, 5, 5, 1);
+  border-radius: 8px;
   padding: 10px;
-  width: 30%;
-  margin: 5%;
+  color: rgb(228, 240, 228);
+  font-size: 9pt;
 }
 
-.playerCard input {
-  display: block;
+.playerCard p {
+  margin: 0 -10px 0 -10px;
 }
 
 .playerCard label {
-  display: block;
-  margin: 5px
+  margin: 5px;
+  color: rgb(103, 199, 101);
 }
 
 .compCard {
-  border: 1px solid black;
-  border-radius: 5px;
-  display: inline-block;
+  background-color: rgba(5, 5, 5, 1);
+  border-radius: 8px;
   padding: 10px;
-  width: 30%;
-  margin: 5%;
+  color: rgb(228, 240, 228);
+  font-size: 9pt;
 }
 
-/*.righty-aside {
-  width: 50%;
-  background-color: red;
-  height: 1000px;
-}*/
+.compCard p {
+  margin: 0 -10px 0 -10px;
+}
+
+.compCard label {
+  margin: 5px;
+  color: rgb(103, 199, 101);
+}
+
+.submitButton {
+  height: 50px;
+  width: 30%;
+  margin: 20px;
+}

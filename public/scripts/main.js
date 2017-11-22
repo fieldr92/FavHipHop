@@ -34,6 +34,12 @@ $(function(){
     $inputAge
   ];
 
+  var playerCard = null;
+  var compCard = null;
+  var playerCardCompare = null;
+  var getCompVal = null;
+  var compCardCompare = null;
+
   // GENERATED ELEMENTS
 
   var $spinner = $('<i class="fa fa-refresh" aria-hidden="true"></i>');
@@ -42,6 +48,125 @@ $(function(){
 
   function errorHandler(error){ //just to show you how to error catch
     console.error(error);
+  }
+
+  // WATCH OUT THEY ARE SYNCHRONOUS
+
+  function pickTwo() {
+    console.log('Picked Two');
+    $.ajax({
+      url: '/artists'
+    }).done(function (response){
+      var cardOne = Math.round(Math.random()*(response.length - 1));
+      var cardTwo = Math.round(Math.random()*(response.length - 1));
+      while (cardOne === cardTwo) {
+        cardTwo = Math.round(Math.random()*(response.length - 1));
+      }
+      playerCard = response[cardOne];
+      compCard = response[cardTwo];
+      console.log(playerCard, compCard);
+      dealCards();
+      }).fail(errorHandler);
+  };
+
+  function repickTwo() {
+    console.log('Repicked Two');
+    $.ajax({
+      url: '/artists'
+    }).done(function (response){
+      var cardOne = Math.round(Math.random()*(response.length - 1));
+      var cardTwo = Math.round(Math.random()*(response.length - 1));
+      while (cardOne === cardTwo) {
+        cardTwo = Math.round(Math.random()*(response.length - 1));
+      }
+      playerCard = response[cardOne];
+      compCard = response[cardTwo];
+      console.log(playerCard, compCard);
+      dealCards();
+      }).fail(errorHandler);
+  }
+
+  function dealCards() {
+    $playerCard.html('');
+    $compCard.html('');
+    $playerCard.append(
+      '<h2>' + playerCard.name + '</h2><p><img src="' + playerCard.img + '" height="200px" /></p><label>Favourite Song</label><p>'
+       + playerCard.favSong + '</p><label>Sub Genre</label><p>'
+       + playerCard.subGenre + '</p><label>Age</label><input name="choices" value="' + playerCard.age + '" id="1" type="radio">'
+       + playerCard.age + '</input><label>No Albums</label><input name="choices" value="' + playerCard.noAlbums + '" id="2" type="radio">'
+       + playerCard.noAlbums + '</input><label>No Collabs</label><input name="choices" value="' + playerCard.noCollabs + '" id="3" type="radio">'
+       + playerCard.noCollabs + '</input><label>No Alter Egos</label><input name="choices" value="' + playerCard.noAlterEgos + '" id="4" type="radio">'
+       + playerCard.noAlterEgos + '</input><label>No Records Sold</label><input name="choices" value="' + playerCard.noRecordsSold + '" id="5" type="radio">'
+       + playerCard.noRecordsSold + '</input>'
+    );
+    $compCard.append(
+      '<h2>' + compCard.name + '</h2><p><img src="' + compCard.img + '" height="200px" /></p><label>Favourite Song</label><p>'
+       + compCard.favSong + '</p><label>Sub Genre</label><p>'
+       + compCard.subGenre + '</p><label>Age</label><input name="match" value="' + compCard.age + '" id="1" type="hidden">???'
+       + '</input><label>No Albums</label><input name="match" value="' + compCard.noAlbums + '" id="2" type="hidden">???'
+       + '</input><label>No Collabs</label><input name="match" value="' + compCard.noCollabs + '" id="3" type="hidden">???'
+       + '</input><label>No Alter Egos</label><input name="match" value="' + compCard.noAlterEgos + '" id="4" type="hidden">???'
+       + '</input><label>No Records Sold</label><input name="match" value="' + compCard.noRecordsSold + '" id="5" type="hidden">???'
+       + '</input>'
+    );
+    // console.log(playerCard.name);
+    Submit();
+  }
+
+  function Submit() {
+    if ($('input[name="choices"]:checked')) {
+      $('#submit').on('submit', function(e) {
+        e.preventDefault();
+        playerCardCompare = $('input[name="choices"]:checked').val();
+        getCompVal = $('input[name="choices"]:checked').attr('id');
+        compCardCompare = $('input[name="match"][id="' + getCompVal + '"]').val();
+        console.log(playerCardCompare, compCardCompare);
+        gameOfTwenty();
+      });
+    } else {
+      alert('Please choose an option!');
+    }
+  }
+
+  var noPlays = null;
+  var playerPoints = null;
+  var compPoints = null;
+
+  function gameOfTwenty() {
+    if (noPlays < 20) {
+      noPlays += 1;
+      compareValues();
+    } else {
+      noPlays = null;
+      playerPoints = null;
+      compPoints = null;
+      $gameBoard.html('<h1>That\'s all folks! Highest scorer wins!')
+    }
+  }
+
+  function compareValues() {
+    if (playerCardCompare > compCardCompare) {
+      playerPoints += 1;
+      console.log('Player:', playerPoints, 'Computer:', compPoints);
+      clearChecks();
+    } else if (playerCardCompare === compCardCompare) {
+      console.log('Player:', playerPoints, 'Computer:', compPoints);
+      clearChecks();
+    } else {
+      console.log('Player:', playerPoints, 'Computer:', compPoints);
+      compPoints += 1;
+      clearChecks();
+    }
+  }
+
+  function clearChecks() {
+    $('input:radio').removeAttr('checked');
+    playerCard = null;
+    compCard = null;
+    playerCardCompare = null;
+    getCompVal = null;
+    compCardCompare = null;
+    repickTwo();
   }
 
   function getArtists() {
@@ -71,96 +196,6 @@ $(function(){
     });
   }
 
-  // WATCH OUT THEY ARE SYNCHRONOUS
-
-  var playerCard = null;
-  var compCard = null;
-
-  function pickTwo() {
-    console.log('Picked Two');
-    $.ajax({
-      url: '/artists'
-    }).done(function(response){
-      var cardOne = Math.round(Math.random()*(response.length - 1));
-      var cardTwo = Math.round(Math.random()*(response.length - 1));
-      while (cardOne === cardTwo) {
-        cardTwo = Math.round(Math.random()*(response.length - 1));
-      }
-      playerCard = response[cardOne];
-      compCard = response[cardTwo];
-      console.log(playerCard, compCard);
-      }).fail(errorHandler);
-      setTimeout(function(){
-        dealCards();
-      }, 500);
-  }
-
-  var playerCardCompare = null;
-  var getCompVal = null;
-  var compCardCompare = null;
-
-  function dealCards() {
-    $playerCard.html('');
-    $compCard.html('');
-    $playerCard.append(
-      '<p>' + playerCard.name + '</p><p><img src="' + playerCard.img + '" height="200px" /></p><label>Favourite Song</label><p>'
-       + playerCard.favSong + '</p><label>Sub Genre</label><p>'
-       + playerCard.subGenre + '</p><label>Age</label><input name="choices" value="' + playerCard.age + '" id="1" type="radio">'
-       + playerCard.age + '</input><label>No Albums</label><input name="choices" value="' + playerCard.noAlbums + '" id="2" type="radio">'
-       + playerCard.noAlbums + '</input><label>No Collabs</label><input name="choices" value="' + playerCard.noCollabs + '" id="3" type="radio">'
-       + playerCard.noCollabs + '</input><label>No Alter Egos</label><input name="choices" value="' + playerCard.noAlterEgos + '" id="4" type="radio">'
-       + playerCard.noAlterEgos + '</input><label>No Records Sold</label><input name="choices" value="' + playerCard.noRecordsSold + '" id="5" type="radio">'
-       + playerCard.noRecordsSold + '</input><label>SUBMIT</label><button type="submit">Submit</button>'
-    );
-    $compCard.append(
-      '<p>' + compCard.name + '</p><p><img src="' + compCard.img + '" height="200px" /><label>Favourite Song</label></p><p>'
-       + compCard.favSong + '</p><label>Sub Genre</label><p>'
-       + compCard.subGenre + '</p><label>Age</label><input name="match" value="' + compCard.age + '" id="1" type="hidden">'
-       + compCard.age + '</input><label>Age</label>No Albums<input name="match" value="' + compCard.noAlbums + '" id="2" type="hidden">'
-       + compCard.noAlbums + '</input><label>No Collabs</label><input name="match" value="' + compCard.noCollabs + '" id="3" type="hidden">'
-       + compCard.noCollabs + '</input><label>No Alter Egos</label><input name="match" value="' + compCard.noAlterEgos + '" id="4" type="hidden">'
-       + compCard.noAlterEgos + '</input><label>No Records Sold</label><input name="match" value="' + compCard.noRecordsSold + '" id="5" type="hidden">'
-       + compCard.noRecordsSold + '</input>'
-    );
-    $('#submit').on('submit', function(e) {
-      playerCardCompare = $('input[name="choices"]:checked').val();
-      getCompVal = $('input[name="choices"]:checked').attr('id');
-      compCardCompare = $('input[name="match"][id="' + getCompVal + '"]').val();
-      console.log(playerCardCompare, getCompVal, compCardCompare);
-      e.preventDefault();
-    });
-  }
-
-  // function compareCards() {
-  //   let playerChoice = document.getElementById('submit');
-  //   console.log('playerChoice', playerChoice);
-  // }
-
-  // function dealCards() {
-  //   $playerCard.html('');
-  //   $compCard.html('');
-  //   $playerCard.append(
-  //     '<div><p>' + playerCard.name + '</p><p><img src="' + playerCard.img + '" height="200px" /></p><p>'
-  //      + playerCard.favSong + '</p><p>'
-  //      + playerCard.subGenre + '</p><p>'
-  //      + playerCard.age + '</p><p>'
-  //      + playerCard.noAlbums + '</p><p>'
-  //      + playerCard.noCollabs + '</p><p>'
-  //      + playerCard.noAlterEgos + '</p><p>'
-  //      + playerCard.noRecordsSold + '</p></div>'
-  //   );
-  //   $compCard.append(
-  //     '<div><p>' + compCard.name + '</p><p><img src="' + compCard.img + '" height="200px" /></p><p>'
-  //      + compCard.favSong + '</p><p>'
-  //      + compCard.subGenre + '</p><p>'
-  //      + compCard.age + '</p><p>'
-  //      + compCard.noAlbums + '</p><p>'
-  //      + compCard.noCollabs + '</p><p>'
-  //      + compCard.noAlterEgos + '</p><p>'
-  //      + compCard.noRecordsSold + '</p></div>'
-  //   );
-  // }
-
   function addArtist(artist) {
     console.log('Add G', artist);
     $.ajax({
@@ -169,17 +204,6 @@ $(function(){
       data: artist
     }).done(function(response) {
         getArtists();
-    }).fail(errorHandler);
-  }
-
-  function deleteArtist(id) {
-    console.log('G deleted', id);
-    $.ajax({
-      method: 'DELETE',
-      url: '/artist/' + id,
-      data: id
-    }).done(function(response) {
-        getArtist();
     }).fail(errorHandler);
   }
 
@@ -213,14 +237,6 @@ $(function(){
     addArtist(newArtist);
     clearForm();
     return false;
-  });
-
-  $($artistsList).on('click.delete', '.delete-button', function(){
-    var $button = $(this);
-    var artistToBeDeletedId = $button.data('id');
-    console.log('deleting...', artistToBeDeletedId);
-    deleteArtist(artistToBeDeletedId);
-    // $button.parents('li').remove();
   });
 
 });
