@@ -7,10 +7,13 @@ $(function(){
   var $gameLoadButton = $('#gameLoad');
   var $gameBoard = $('#gameBoard');
   var $playerCard = $('.playerCard');
-  var $submit = $('#submit');
   var $compCard = $('.compCard');
+  var $submit = $('#submit');
   var $artistsList = $('#artistsList');
 
+  var $playerScore = $('.playerScore');
+  var $compScore = $('.compScore');
+  var $playCount = $('.playCount');
   var $addForm = $('#addForm');
   var $inputArtistName = $('#inputArtistName');
   var $inputImg = $('#inputImg');
@@ -34,6 +37,8 @@ $(function(){
     $inputAge
   ];
 
+  var cardOne = null;
+  var cardTwo = null;
   var playerCard = null;
   var compCard = null;
   var playerCardCompare = null;
@@ -57,36 +62,19 @@ $(function(){
     $.ajax({
       url: '/artists'
     }).done(function (response){
-      var cardOne = Math.round(Math.random()*(response.length - 1));
-      var cardTwo = Math.round(Math.random()*(response.length - 1));
+      cardOne = Math.round(Math.random()*(response.length - 1));
+      cardTwo = Math.round(Math.random()*(response.length - 1));
       while (cardOne === cardTwo) {
         cardTwo = Math.round(Math.random()*(response.length - 1));
       }
       playerCard = response[cardOne];
       compCard = response[cardTwo];
-      console.log(playerCard, compCard);
       dealCards();
       }).fail(errorHandler);
   };
 
-  function repickTwo() {
-    console.log('Repicked Two');
-    $.ajax({
-      url: '/artists'
-    }).done(function (response){
-      var cardOne = Math.round(Math.random()*(response.length - 1));
-      var cardTwo = Math.round(Math.random()*(response.length - 1));
-      while (cardOne === cardTwo) {
-        cardTwo = Math.round(Math.random()*(response.length - 1));
-      }
-      playerCard = response[cardOne];
-      compCard = response[cardTwo];
-      console.log(playerCard, compCard);
-      dealCards();
-      }).fail(errorHandler);
-  }
-
   function dealCards() {
+    console.log('deal cards');
     $playerCard.html('');
     $compCard.html('');
     $playerCard.append(
@@ -109,28 +97,25 @@ $(function(){
        + '</input><label>No Records Sold</label><input name="match" value="' + compCard.noRecordsSold + '" id="5" type="hidden">???'
        + '</input>'
     );
-    // console.log(playerCard.name);
     Submit();
   }
 
   function Submit() {
-    if ($('input[name="choices"]:checked')) {
-      $('#submit').on('submit', function(e) {
-        e.preventDefault();
-        playerCardCompare = $('input[name="choices"]:checked').val();
-        getCompVal = $('input[name="choices"]:checked').attr('id');
-        compCardCompare = $('input[name="match"][id="' + getCompVal + '"]').val();
-        console.log(playerCardCompare, compCardCompare);
-        gameOfTwenty();
-      });
-    } else {
-      alert('Please choose an option!');
-    }
+    // NEED TO FIX THE BELOW
+    // $('#submit').on('submit', function(e) {
+    $('#submit').one('submit', function(e) {
+      e.preventDefault();
+      playerCardCompare = $('input[name="choices"]:checked').val();
+      getCompVal = $('input[name="choices"]:checked').attr('id');
+      compCardCompare = $('input[name="match"][id="' + getCompVal + '"]').val();
+      // console.log(playerCardCompare, compCardCompare);
+      gameOfTwenty();
+    });
   }
 
   var noPlays = null;
-  var playerPoints = null;
-  var compPoints = null;
+  var playerPoints = 0;
+  var compPoints = 0;
 
   function gameOfTwenty() {
     if (noPlays < 20) {
@@ -146,17 +131,35 @@ $(function(){
 
   function compareValues() {
     if (playerCardCompare > compCardCompare) {
+      alert('Player Wins!');
       playerPoints += 1;
-      console.log('Player:', playerPoints, 'Computer:', compPoints);
+      showPoints();
       clearChecks();
     } else if (playerCardCompare === compCardCompare) {
-      console.log('Player:', playerPoints, 'Computer:', compPoints);
+      alert('Draw - No-one Wins!');
+      showPoints();
       clearChecks();
     } else {
-      console.log('Player:', playerPoints, 'Computer:', compPoints);
+      alert('Computer Wins!');
       compPoints += 1;
+      showPoints();
       clearChecks();
     }
+  }
+
+  function showPoints() {
+    $playerScore.html('');
+    $compScore.html('');
+    $playCount.html('');
+    $playerScore.append(
+      '<h1>' + playerPoints + '</h1>'
+    );
+    $compScore.append(
+      '<h1>' + compPoints + '</h1>'
+    );
+    $playCount.append(
+      '<h1>' + noPlays + '</h1>'
+    );
   }
 
   function clearChecks() {
@@ -166,7 +169,9 @@ $(function(){
     playerCardCompare = null;
     getCompVal = null;
     compCardCompare = null;
-    repickTwo();
+    cardOne = null;
+    cardTwo = null;
+    pickTwo();
   }
 
   function getArtists() {

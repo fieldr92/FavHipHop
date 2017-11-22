@@ -15,7 +15,8 @@ header {
 
 header h1 {
   font-family: 'Press Start 2P', cursive;
-  margin-left: 3%;
+  /*margin-left: 3%;*/
+  text-align: center;
   font-size: 24pt;
   font-weight: lighter;
 }
@@ -27,17 +28,22 @@ header h1 {
 
 .lefty-sec {
   width: 20%;
-  background-color: rgba(119, 48, 140, 0.76);
+  background-color: rgba(12, 99, 21, 0.8);
   height: 700px;
 }
 
 button {
+  border-radius: 3px;
+  border: 2px rgba(10, 18, 12, 0.89) solid;
   line-height: 1.5;
   font-family: 'Press Start 2P', cursive;
   font-size: 14pt;
   font-weight: bolder;
-
 }
+
+/*button:click {
+
+}*/
 
 .startButton {
   height: 70px;
@@ -49,14 +55,34 @@ button {
   color: rgb(235, 235, 235);
 }
 
-.score {
-  height: 150px;
+.lefty-sec div h1 {
+  font-size: 32pt;
+}
+
+.playerScore {
+  height: 100px;
   width: 100%;
+  line-height: 100px;
+  vertical-align: middle;
+}
+
+.compScore {
+  height: 100px;
+  width: 100%;
+  line-height: 100px;
+  vertical-align: middle;
+}
+
+.playCount {
+  height: 100px;
+  width: 100%;
+  line-height: 100px;
+  vertical-align: middle;
 }
 
 .righty-aside {
   width: 80%;
-  background-color: rgb(192, 182, 233);
+  background-color: rgb(188, 233, 182);
   height: 700px;
 }
 
