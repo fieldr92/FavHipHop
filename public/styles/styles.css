@@ -97,6 +97,7 @@ button {
   margin: -10px -10px 0 -10px;
   font-weight: bolder;
   background-color: gold;
+  color: rgba(10, 18, 12, 0.89);
   border-radius: 6px 6px 0 0 ;
 }
 

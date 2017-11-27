@@ -23,6 +23,7 @@ header {
 
 .artistLoad {
   display: flex;
+  max-width: 70%;
 }
 
 .artistLoad div {

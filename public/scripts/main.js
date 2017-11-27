@@ -78,37 +78,57 @@ $(function(){
     $playerCard.html('');
     $compCard.html('');
     $playerCard.append(
-      '<h2>' + playerCard.name + '</h2><p><img src="' + playerCard.img + '" height="200px" /></p><label>Favourite Song</label><p>'
-       + playerCard.favSong + '</p><label>Sub Genre</label><p>'
-       + playerCard.subGenre + '</p><label>Age</label><input name="choices" value="' + playerCard.age + '" id="1" type="radio">'
-       + playerCard.age + '</input><label>No Albums</label><input name="choices" value="' + playerCard.noAlbums + '" id="2" type="radio">'
-       + playerCard.noAlbums + '</input><label>No Collabs</label><input name="choices" value="' + playerCard.noCollabs + '" id="3" type="radio">'
-       + playerCard.noCollabs + '</input><label>No Alter Egos</label><input name="choices" value="' + playerCard.noAlterEgos + '" id="4" type="radio">'
-       + playerCard.noAlterEgos + '</input><label>No Records Sold</label><input name="choices" value="' + playerCard.noRecordsSold + '" id="5" type="radio">'
-       + playerCard.noRecordsSold + '</input>'
+      `
+      <h2>${playerCard.name}</h2>
+      <p><img src="${playerCard.img}" height="200px" /></p>
+      <label>Favourite Song</label>
+      <p>${playerCard.favSong}</p>
+      <label>Sub Genre</label>
+      <p>${playerCard.subGenre}</p>
+      <label>Age</label>
+        <input name="choices" value="${playerCard.age}" id="1" type="radio">${playerCard.age}</input>
+      <label>No Albums</label>
+        <input name="choices" value="${playerCard.noAlbums}" id="2" type="radio">${playerCard.noAlbums}</input>
+      <label>No Collabs</label>
+        <input name="choices" value="${playerCard.noCollabs}" id="3" type="radio">${playerCard.noCollabs}</input>
+      <label>No Alter Egos</label>
+        <input name="choices" value="${playerCard.noAlterEgos}" id="4" type="radio">${playerCard.noAlterEgos}</input>
+      <label>No Records Sold</label>
+        <input name="choices" value="${playerCard.noRecordsSold}" id="5" type="radio">${playerCard.noRecordsSold}</input>
+      `
     );
     $compCard.append(
-      '<h2>' + compCard.name + '</h2><p><img src="' + compCard.img + '" height="200px" /></p><label>Favourite Song</label><p>'
-       + compCard.favSong + '</p><label>Sub Genre</label><p>'
-       + compCard.subGenre + '</p><label>Age</label><input name="match" value="' + compCard.age + '" id="1" type="hidden">???'
-       + '</input><label>No Albums</label><input name="match" value="' + compCard.noAlbums + '" id="2" type="hidden">???'
-       + '</input><label>No Collabs</label><input name="match" value="' + compCard.noCollabs + '" id="3" type="hidden">???'
-       + '</input><label>No Alter Egos</label><input name="match" value="' + compCard.noAlterEgos + '" id="4" type="hidden">???'
-       + '</input><label>No Records Sold</label><input name="match" value="' + compCard.noRecordsSold + '" id="5" type="hidden">???'
-       + '</input>'
+      `
+      <h2>${compCard.name}</h2>
+      <p><img src="${compCard.img}" height="200px" /></p>
+      <label>Favourite Song</label>
+      <p>${compCard.favSong}</p>
+      <label>Sub Genre</label>
+      <p>${compCard.subGenre}</p>
+      <label>Age</label>
+        <input name="match" value="${compCard.age}" id="1" type="hidden">???</input>
+      <label>No Albums</label>
+        <input name="match" value="${compCard.noAlbums}" id="2" type="hidden">???</input>
+      <label>No Collabs</label>
+        <input name="match" value="${compCard.noCollabs}" id="3" type="hidden">???</input>
+      <label>No Alter Egos</label>
+        <input name="match" value="${compCard.noAlterEgos}" id="4" type="hidden">???</input>
+      <label>No Records Sold</label>
+        <input name="match" value="${compCard.noRecordsSold}" id="5" type="hidden">???</input>
+      `
     );
     Submit();
   }
 
   function Submit() {
     // NEED TO FIX THE BELOW
-    // $('#submit').on('submit', function(e) {
+    // $('#submit').on('click', function(e) {
     $('#submit').one('submit', function(e) {
       e.preventDefault();
       playerCardCompare = $('input[name="choices"]:checked').val();
       getCompVal = $('input[name="choices"]:checked').attr('id');
       compCardCompare = $('input[name="match"][id="' + getCompVal + '"]').val();
-      // console.log(playerCardCompare, compCardCompare);
+      console.log('Player:', playerCardCompare, 'Computer:', compCardCompare);
       gameOfTwenty();
     });
   }
@@ -118,7 +138,7 @@ $(function(){
   var compPoints = 0;
 
   function gameOfTwenty() {
-    if (noPlays < 20) {
+    if (noPlays < 10) {
       noPlays += 1;
       compareValues();
     } else {
